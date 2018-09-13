@@ -110,6 +110,15 @@
     -webkit-background-clip: text;
 }
 
+
+.btn-project {
+  color: #3f73a2;
+}
+
+.btn-project:hover {
+  background-color: #3f73a2;
+}
+
 .masthead h2 {
     max-width: 20rem;
     font-size: 1rem;
@@ -288,6 +297,11 @@ body {
 a {
     color: #3f73a2;
 }
+
+li {
+  color: #3f73a2;
+}
+
 
 a:focus, a:hover {
     text-decoration: none;
