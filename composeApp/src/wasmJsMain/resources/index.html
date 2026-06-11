@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="David Arribas – Android Developer. Online resume built with Kotlin & Compose Multiplatform.">
+    <title>David Arribas – Android Developer</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: #0A0A14; }
+        canvas {
+            display: block;
+            width: 100vw;
+            height: 100vh;
+        }
+        #loader {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            background: #0A0A14;
+            z-index: 10;
+            transition: opacity 0.5s ease;
+        }
+        #loader .ring {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            border: 3px solid transparent;
+            border-top-color: #6C63FF;
+            border-right-color: #00E5FF;
+            animation: spin 0.9s linear infinite;
+        }
+        #loader p {
+            color: #B0B3C1;
+            font-family: -apple-system, system-ui, sans-serif;
+            font-size: 14px;
+            letter-spacing: 1px;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+<div id="loader">
+    <div class="ring"></div>
+    <p>DAVID ARRIBAS</p>
+</div>
+<canvas id="ComposeTarget"></canvas>
+<script src="composeApp.js"></script>
+<script>
+    // Hide loader once the wasm app paints its first frame
+    const hideLoader = () => {
+        const loader = document.getElementById('loader');
+        if (!loader) return;
+        loader.style.opacity = '0';
+        setTimeout(() => loader.remove(), 500);
+    };
+    const observer = new MutationObserver(() => {
+        const canvas = document.getElementById('ComposeTarget');
+        if (canvas && canvas.width > 0) {
+            hideLoader();
+            observer.disconnect();
+        }
+    });
+    observer.observe(document.getElementById('ComposeTarget'), { attributes: true });
+    setTimeout(hideLoader, 8000); // fallback
+</script>
+</body>
+</html>
